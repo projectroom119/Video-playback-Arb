@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No Internet - Video Background</title>
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Full Page Styling */
+      body,
+      html {
+        height: 100%;
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f4;
+        overflow: hidden;
+      }
+
+      /* Video Background */
+      .video-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .video-container video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+      }
+
+      /* Main Container Styling */
+      .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Semi-transparent background */
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1;
+      }
+
+      /* No Internet Box */
+      .no-internet {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Dinosaur Image */
+      .dinosaur img {
+        width: 120px;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      /* Heading */
+      h1 {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      /* Message Text */
+      .message {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      /* Reload Button */
+      .reload-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #4285f4;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      .reload-btn:hover {
+        background-color: #357ae8;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Video Background -->
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source
+          src="https://github.com/projectroom119/Video-assets-/raw/refs/heads/main/AQOIcfj7S0X4BktnDVdIRYfOTTJ4kuck3pHfffKpHcLT2MaJHShfFFT5K3IaabFI3AGFg3dkqBBf5G0EXnlP5u57.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- No Internet Content -->
+    <div class="container">
+      <div class="no-internet">
+        <!-- Dinosaur Icon -->
+        <div class="dinosaur">
+          <img
+            src="https://banner2.cleanpng.com/20180704/xps/aaxs2ustp.webp"
+            alt="dinosaur"
+          />
+        </div>
+        <!-- No Internet Heading -->
+        <h1>No internet</h1>
+        <!-- Message -->
+        <p class="message">You are not connected to the internet.</p>
+        <!-- Reload Button -->
+        <a href="">
+          <button class="reload-btn" onclick="window.location.reload();">
+            Try Again
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // Show the "No Internet" element after 3 seconds
+      setTimeout(() => {
+        document.querySelector(".container").style.display = "block";
+      }, 3000);
+    </script>
+  </body>
+</html>
