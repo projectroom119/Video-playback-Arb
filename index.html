@@ -160,22 +160,5 @@
 
 
 
-
-
- <script>
-      // Wait for the page to load
-      window.addEventListener("load", () => {
-        // Set a 10-second delay
-        setTimeout(() => {
-  const link = document.querySelector("body a");
-  if (link) {
-    window.location.href = link.href; // Redirects without triggering a popup block
-  } else {
-    console.warn("No link found in the body!");
-  }
-}, 5000);
-      });
-    </script>
-
   </body>
 </html>
