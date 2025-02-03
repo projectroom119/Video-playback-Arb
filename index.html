@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-<meta name="monetag" content="d8baa0cffd37b75879976b98bd6e862e">
+<head>
 
-
-<!-- Meta Pixel Code -->
+  <!-- Meta Pixel Code -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1292211765246906');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1292211765246906&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sem Internet - reprodução de vídeo</title>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1292211765246906');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1292211765246906&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 
 
   <script>
@@ -84,154 +78,168 @@ src="https://www.facebook.com/tr?id=1292211765246906&ev=PageView&noscript=1"
     })();
   </script>
 
-    <style>
-      /* General Reset */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok | Home</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-      /* Full Page Styling */
-      body,
-      html {
-        height: 100%;
-        font-family: "Roboto", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f4f4f4;
-        overflow: hidden;
-      }
+    body, html {
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      /* Video Background */
-      .video-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-      }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-      .video-container video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 100%;
-        min-height: 100%;
-        object-fit: cover;
-      }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-      /* Main Container Styling */
-      .container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        background-color: red; /* Semi-transparent background */
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        display: none;
-        z-index: 1;
-      }
+    .sidebar {
+      position: absolute;
+      right: 10px;
+      bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
 
-      /* No Internet Box */
-      .no-internet {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
+    .sidebar img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-      /* Dinosaur Image */
-      .dinosaur img {
-        width: 120px;
-        height: auto;
-        margin-bottom: 20px;
-      }
+    .icon {
+      color: white;
+      font-size: 24px;
+      text-align: center;
+    }
 
-      /* Heading */
-      h1 {
-        font-size: 26px;
-        color: white;
-        margin-bottom: 10px;
-        font-weight: 500;
-      }
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
 
-      /* Message Text */
-      .message {
-        font-size: 16px;
-        color: white;
-        margin-bottom: 20px;
-      }
+    .bottom-bar .icon {
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-      /* Reload Button */
-      .reload-btn {
-        padding: 5px 10px;
-        font-size: 16px;
-        color: white;
-        background-color: Blue;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 20px;
-      }
+    /* TikTok-like popup */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(34, 34, 34, 0.9);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      display: none;
+      width: 280px;
+      color: white;
+    }
 
-      .reload-btn:hover {
-        background-color: #357ae8;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Video Background -->
-    <div class="video-container">
-      <video autoplay muted loop>
-        <source
-          src="https://github.com/projectroom119/Video-assets-/raw/refs/heads/main/AQOIcfj7S0X4BktnDVdIRYfOTTJ4kuck3pHfffKpHcLT2MaJHShfFFT5K3IaabFI3AGFg3dkqBBf5G0EXnlP5u57.mp4"
-          type="video/mp4"
-        />
-       Your browser does not support the video tag.
-      </video>
+    .popup p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .popup .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    .popup button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .popup .cancel {
+      background: #333;
+      color: white;
+    }
+
+    .popup .continue {
+      background: #ff2d55;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <video id="video" autoplay loop muted>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <div class="sidebar">
+      <img src="profile.jpg" alt="Profile">
+      <div class="icon">❤️ 578.8K</div>
+      <div class="icon">💬 3846</div>
+      <div class="icon">🔗 Share</div>
     </div>
-
-    <!-- No Internet Content -->
-    <div class="container">
-      <div class="no-internet">
-        <!-- Dinosaur Icon -->
-        <div class="dinosaur">
-          <img
-            src="https://banner2.cleanpng.com/20180704/xps/aaxs2ustp.webp"
-            alt="dinosaur"
-          />
-        </div>
-        <!-- No Internet Heading -->
-        <h1>No internet</h1>
-        <!-- Message -->
-        <p class="message">Not connected to the internet.</p>
-        <!-- Reload Button -->
-        <a href="https://bettingmet.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7">
-          <button class="reload-btn" onclick="window.location.reload();">
-            Reload
-          </button>
-        </a>
-      </div>
+    
+    <div class="bottom-bar">
+      <div class="icon">🏠 Home</div>
+      <div class="icon">🔍 Discover</div>
+      <div class="icon">➕ Post</div>
+      <div class="icon">📩 Inbox</div>
+      <div class="icon">👤 Profile</div>
     </div>
+  </div>
 
-    <script>
-      // Show the "No Internet" element after 3 seconds
-      setTimeout(() => {
-        document.querySelector(".container").style.display = "block";
-      }, 3000);
-    </script>
+  <div class="popup" id="popup">
+    <p><strong>Turn Sound On?</strong></p>
+    <p>The video will play with sound. Continue?</p>
+    <div class="buttons">
+      <a href="https://bettingmet.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7">
+      <button class="cancel" onclick="closePopup()">Cancel</button>
+    </a>
 
+<a href="https://bettingmet.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7">
+      <button class="continue" onclick="continueVideo()">Turn On</button>
+    </a>
 
+    </div>
+  </div>
 
+  <script>
+    window.onload = function() {
+      document.getElementById("popup").style.display = "block";
+    };
 
-  </body>
+  </script>
+</body>
 </html>
